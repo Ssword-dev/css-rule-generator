@@ -74,7 +74,7 @@ try:
     with open(parsedargs.output,"wb") as f:
         for i in range(101):
             #f.write(f"/*region:size({i})*/\n")
-            f.write(frameworkequivs["o:{}"](i,f"{i}%"))
+            f.write(frameworkequivs["o:{}"](str(i)+"\\%",f"{i}%"))
 
             f.write(frameworkequivs["z:{}"](i,i))
 
@@ -103,11 +103,11 @@ try:
                     f.write(frameworkequivs["c:{}"](f"rgb\\({i}\\,{o}\\,{e}\\)",f"rgb({i},{o},{e})"))
 
                     f.write(frameworkequivs["bg:{}"](f"rgb\\({i}\\,{o}\\,{e}\\)",f"rgb({i},{o},{e})"))
-            print(f"{"\\" if i%3==0 else "/"}",end="\r")
+            print(f"{(i//255)*100}",end="\r")
             #        f.write(f"/*endregion:red:{i};green:{o};blue:{e}*/\n")
             #    f.write(f"/*endregion:red:{i};green:{o};*/\n")
             #f.write(f"/*endregion:red:{i};*/\n")
-        
+        f.write(b".f\\:edit{-webkit-user-modify: read-write;}")
         len_.measure(parsedargs.output)
         isTerminated=True
 finally:
